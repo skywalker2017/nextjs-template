@@ -10,11 +10,16 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@gradio/client": "^1.6.0-beta.3",
+    "@orbs-network/ton-access": "^2.3.3",
     "@telegram-apps/react-router-integration": "^1.0.0",
     "@telegram-apps/sdk-react": "^1.0.0",
     "@telegram-apps/telegram-ui": "^2.1.5",
+    "@ton/ton": "^15.0.0",
     "@tonconnect/ui-react": "^2.0.5",
+    "axios": "^1.7.7",
     "eruda": "^3.0.1",
+    "fs": "^0.0.1-security",
     "next": "14.2.4",
     "normalize.css": "^8.0.1",
     "react": "^18",
