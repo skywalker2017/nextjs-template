@@ -104,7 +104,7 @@ function Inner() {
     const hash = result.message;
 
     //const videoUrl = `http://127.0.0.1:6006/file=/root/autodl-tmp/Linly-Talker/temp/${hash}/myface_answer.mp4`; // Replace with your video URL
-    const videoUrl = `https://b736-43-143-237-200.ngrok-free.app/${hash}.mp4`
+    const videoUrl = `https://89d7-43-143-237-200.ngrok-free.app/${hash}.mp4`
     try {
       const blobUrl = await fetchVideoWithHeaders(videoUrl);
       setResponse(blobUrl);
