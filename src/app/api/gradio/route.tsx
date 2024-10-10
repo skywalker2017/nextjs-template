@@ -1,5 +1,6 @@
 // app/api/submit/route.ts
-
+import fs from 'fs/promises';
+import path from 'path';
 import axios from "axios";
 
 interface GradioResp {
@@ -27,11 +28,11 @@ async function getResponse(eventUrl: string): Promise<string> {
             // todo length check
             console.log(`chunkedJson: ${chunkedJson}`);
             const jsonObject = JSON.parse(chunkedJson);
-    
+
             const url = jsonObject[0].video.url;
             console.log(`url:${url}`);
             resolve(url);
-            
+
         });
         eventGet.data.on('error', (error: Error) => {
             reject(`'Stream error:', ${error}`);
@@ -49,10 +50,11 @@ export async function POST(request: Request): Promise<Response> {
         data: [input]
     };
     let url = "";
+    let eventId = "";
     try {
 
         const response = await axios.post<GradioResp>(apiUrl, gradioReq, {}); // Make a GET request
-        const eventId = response.data.event_id;
+        eventId = response.data.event_id;
         const eventUrl = `${apiUrl}/${eventId}`
         console.log(`eventUrl:${eventUrl}`)
         url = await getResponse(eventUrl);
@@ -66,7 +68,22 @@ export async function POST(request: Request): Promise<Response> {
     }
     console.log(`return: ${url}`);
 
-    return new Response(JSON.stringify({ message: `${url}` }), {
+    const projectPath = "/root/autodl-tmp/Linly-Talker/temp";
+    const aiProjectPath = "/root/autodl-tmp/nextjs-template/public";
+
+    // copy file
+    const sourcePath = `${aiProjectPath}`;
+    const destinationPath = `${projectPath}`;
+
+    try {
+        await fs.copyFile(`${sourcePath}/${eventId}/myface_answer.mp4`, `${destinationPath}/${eventId}.mp4`);
+    } catch (error) {
+        console.error('Error copying file:', error);
+    }
+
+    console.log("copy done");
+
+    return new Response(JSON.stringify({ message: `${eventId}` }), {
         status: 200,
         headers: {
             'Content-Type': 'application/json',
