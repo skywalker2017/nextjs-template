@@ -51,6 +51,7 @@ export async function POST(request: Request): Promise<Response> {
     };
     let url = "";
     let eventId = "";
+    let hash = "";
     try {
 
         const response = await axios.post<GradioResp>(apiUrl, gradioReq, {}); // Make a GET request
@@ -58,6 +59,8 @@ export async function POST(request: Request): Promise<Response> {
         const eventUrl = `${apiUrl}/${eventId}`
         console.log(`eventUrl:${eventUrl}`)
         url = await getResponse(eventUrl);
+        const tail = url.split('temp/')[1];
+        hash = tail.split('/')[0];
 
     } catch (error) {
         if (axios.isAxiosError(error)) {
@@ -76,14 +79,14 @@ export async function POST(request: Request): Promise<Response> {
     const destinationPath = `${projectPath}`;
 
     try {
-        await fs.copyFile(`${aiProjectPath}/${eventId}/myface_answer.mp4`, `${projectPath}/${eventId}.mp4`);
+        await fs.copyFile(`${aiProjectPath}/${hash}/myface_answer.mp4`, `${projectPath}/${hash}.mp4`);
     } catch (error) {
         console.error('Error copying file:', error);
     }
 
     console.log("copy done");
 
-    return new Response(JSON.stringify({ message: `${eventId}` }), {
+    return new Response(JSON.stringify({ message: `${hash}` }), {
         status: 200,
         headers: {
             'Content-Type': 'application/json',
