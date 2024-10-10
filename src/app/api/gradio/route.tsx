@@ -44,7 +44,7 @@ export async function POST(request: Request): Promise<Response> {
     console.log(`data: ${JSON.stringify(data)}`)
     const input = data.inputValue;
 
-    const apiUrl = "https://6efd-43-143-237-200.ngrok-free.app/call/predict"; // Public API URL
+    const apiUrl = "http://127.0.0.1:6006/call/predict"; // Public API URL
     const gradioReq: GradioReq = {
         data: [input]
     };
