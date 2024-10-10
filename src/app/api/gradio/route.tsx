@@ -68,15 +68,15 @@ export async function POST(request: Request): Promise<Response> {
     }
     console.log(`return: ${url}`);
 
-    const projectPath = "/root/autodl-tmp/Linly-Talker/temp";
-    const aiProjectPath = "/root/autodl-tmp/nextjs-template/public";
+    const aiProjectPath = "/root/autodl-tmp/Linly-Talker/temp";
+    const projectPath = "/root/autodl-tmp/nextjs-template/public";
 
     // copy file
     const sourcePath = `${aiProjectPath}`;
     const destinationPath = `${projectPath}`;
 
     try {
-        await fs.copyFile(`${sourcePath}/${eventId}/myface_answer.mp4`, `${destinationPath}/${eventId}.mp4`);
+        await fs.copyFile(`${aiProjectPath}/${eventId}/myface_answer.mp4`, `${projectPath}/${eventId}.mp4`);
     } catch (error) {
         console.error('Error copying file:', error);
     }
