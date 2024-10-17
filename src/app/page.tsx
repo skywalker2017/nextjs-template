@@ -131,16 +131,17 @@ function Inner() {
               <h1>Text Input Example</h1>
               <input
                 type="text"
+                style={{ width: '100%' }}
                 value={inputValue}
                 onChange={handleInputChange}
                 placeholder="Enter some text"
               />
-              <div> Result : {response} </div>
+              {/* <div> Result : {response} </div> */}
               <video key={response} width="640" height="360" controls>
                 <source src={response} type="video/mp4" />
                 Your browser does not support the video tag.
               </video>
-              <button onClick={predictUrl}>hello</button>
+              {/* <button onClick={predictUrl}>hello</button> */}
             </div>
           </SDKProvider>
         </AppStateProvider>
